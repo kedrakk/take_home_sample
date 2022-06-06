@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:take_home/const/date_time_extension.dart';
 import 'package:take_home/const/theme.dart';
 import 'package:take_home/provider/booking_page_provider.dart';
+import 'package:take_home/widgets/loading_dialog.dart';
 
 class BookingPage extends StatelessWidget {
   const BookingPage({Key? key}) : super(key: key);
@@ -137,7 +138,7 @@ class BookingPage extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50), // NEW
                         ),
-                        onPressed: () {},
+                        onPressed: () => showSuccessDialog(context),
                         child: const Text(
                           'Proceed Next',
                         ),
@@ -147,16 +148,6 @@ class BookingPage extends StatelessWidget {
                 : const SizedBox(
                     height: 0,
                   ),
-            // floatingActionButton: value.selectedSlot != null
-            //     ? FloatingActionButton.extended(
-            //         onPressed: () {},
-            //         label: const Text(
-            //           "Click here to book",
-            //         ),
-            //       )
-            //     : null,
-            // floatingActionButtonLocation:
-            //     FloatingActionButtonLocation.centerFloat,
           ),
         );
       },

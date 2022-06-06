@@ -49,7 +49,11 @@ class LoginPage extends StatelessWidget {
       );
     }).catchError((e) {
       dismissDialog(context);
-      showErrorMessage(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        showErrorMessage(
+          e.toString(),
+        ),
+      );
     });
   }
 }
