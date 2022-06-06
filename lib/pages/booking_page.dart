@@ -108,16 +108,55 @@ class BookingPage extends StatelessWidget {
                 )
               ],
             ),
-            floatingActionButton: value.selectedSlot != null
-                ? FloatingActionButton.extended(
-                    onPressed: () {},
-                    label: const Text(
-                      "Click here to book",
-                    ),
+            bottomNavigationBar: value.selectedSlot != null
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    height: MediaQuery.of(context).size.height * 1 / 10,
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 3.0,
+                          bottom: 5,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Selected Slot: ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              "${value.selectedSlot!.startTime.toTimeOnly()} - ${value.selectedSlot!.endTime.toTimeOnly()}",
+                            ),
+                          ],
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50), // NEW
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          'Proceed Next',
+                        ),
+                      ),
+                    ]),
                   )
-                : null,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
+                : const SizedBox(
+                    height: 0,
+                  ),
+            // floatingActionButton: value.selectedSlot != null
+            //     ? FloatingActionButton.extended(
+            //         onPressed: () {},
+            //         label: const Text(
+            //           "Click here to book",
+            //         ),
+            //       )
+            //     : null,
+            // floatingActionButtonLocation:
+            //     FloatingActionButtonLocation.centerFloat,
           ),
         );
       },
