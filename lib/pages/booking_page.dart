@@ -18,6 +18,14 @@ class BookingPage extends StatelessWidget {
             backgroundColor: MainTheme.darkWhite,
             appBar: AppBar(
               title: const Text('Available Time Slots'),
+              actions: [
+                IconButton(
+                  onPressed: () => showInfoModal(context),
+                  icon: const Icon(
+                    Icons.info_outline,
+                  ),
+                ),
+              ],
             ),
             body: Column(
               children: [
@@ -96,21 +104,31 @@ class BookingPage extends StatelessWidget {
                             color: MainTheme.primary.withOpacity(.05),
                           ),
                         ),
-                        child: TextButton(
-                          style: value.selectedTimeSlot!.slots[index] ==
-                                  value.selectedSlot
-                              ? MainTheme.selectedSlotTimeStyle
-                              : MainTheme.normalSlotTimeStyle,
-                          onPressed: () => value.setSelectedSlot(
-                              value.selectedTimeSlot!.slots[index]),
-                          child: Text(
-                            "${value.selectedTimeSlot!.slots[index].startTime.toTimeOnly()} - ${value.selectedTimeSlot!.slots[index].endTime.toTimeOnly()}",
-                            style: value.selectedTimeSlot!.slots[index] ==
-                                    value.selectedSlot
-                                ? MainTheme.selectedSlotTextStyle
-                                : MainTheme.slotTextStyle,
-                          ),
-                        ),
+                        child: value.selectedTimeSlot!.slots[index].available
+                            ? TextButton(
+                                style: value.selectedTimeSlot!.slots[index] ==
+                                        value.selectedSlot
+                                    ? MainTheme.selectedSlotTimeStyle
+                                    : MainTheme.normalSlotTimeStyle,
+                                onPressed: () => value.setSelectedSlot(
+                                    value.selectedTimeSlot!.slots[index]),
+                                child: Text(
+                                  "${value.selectedTimeSlot!.slots[index].startTime.toTimeOnly()} - ${value.selectedTimeSlot!.slots[index].endTime.toTimeOnly()}",
+                                  style: value.selectedTimeSlot!.slots[index] ==
+                                          value.selectedSlot
+                                      ? MainTheme.selectedSlotTextStyle
+                                      : MainTheme.slotTextStyle,
+                                ),
+                              )
+                            : Container(
+                                color: Colors.grey[200],
+                                child: Center(
+                                  child: Text(
+                                    "${value.selectedTimeSlot!.slots[index].startTime.toTimeOnly()} - ${value.selectedTimeSlot!.slots[index].endTime.toTimeOnly()}",
+                                    style: MainTheme.slotTextStyle,
+                                  ),
+                                ),
+                              ),
                       ),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(

@@ -14,7 +14,7 @@ class TimeSlot {
         Slots(
           startTime: "2022-06-15 09:15",
           endTime: "2022-06-15 09:30",
-          available: true,
+          available: false,
         ),
         Slots(
           startTime: "2022-06-15 09:30",
