@@ -12,23 +12,22 @@ class Prices {
     required this.currentTime,
   });
 
-  static Prices demoPrices = Prices(
-    ounce: WeightType(
-        weightName: "Ounce", gold: 2399.24, silver: 31.69, platinum: 1274.518),
-    gram: WeightType(
-        weightName: "1 gram", gold: 77.1373, silver: 1.0189, platinum: 40.9767),
-    hundredGram: WeightType(
-        weightName: "100 grams",
-        gold: 7713.5566,
-        silver: 101.8834,
-        platinum: 4097.5754),
-    thousandGram: WeightType(
-        weightName: "1000 grams",
-        gold: 77130.7675,
-        silver: 1018.8557,
-        platinum: 40976.6459),
-    currentTime: "2021-09-11 13:39:45 SGT",
-  );
+  factory Prices.fromJson(Map<String, dynamic> data) {
+    final ounce = WeightType.fromJson(data['prices']['ounce'], "Ounce");
+    final gram = WeightType.fromJson(data['prices']['gram'], "1 gram");
+    final hundredGram =
+        WeightType.fromJson(data['prices']['hundred_gram'], "100 grams");
+    final thousandGram =
+        WeightType.fromJson(data['prices']['thousand_gram'], "1000 grams");
+    final currentTime = data['current_time'] as String;
+    return Prices(
+      ounce: ounce,
+      gram: gram,
+      hundredGram: hundredGram,
+      thousandGram: thousandGram,
+      currentTime: currentTime,
+    );
+  }
 }
 
 class WeightType {
@@ -42,4 +41,16 @@ class WeightType {
     required this.gold,
     required this.platinum,
   });
+
+  factory WeightType.fromJson(Map<String, dynamic> data, String key) {
+    final gold = data['gold'] as double;
+    final silver = data['silver'] as double;
+    final platinum = data['platinum'] as double;
+    return WeightType(
+      weightName: key,
+      silver: silver,
+      gold: gold,
+      platinum: platinum,
+    );
+  }
 }

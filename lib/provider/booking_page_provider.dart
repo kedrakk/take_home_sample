@@ -7,7 +7,7 @@ class BookingPageProvider with ChangeNotifier {
     _init();
   }
 
-  void _init() {
+  void _init() async {
     _timeSlots = TimeSlot.timeSlots;
     _selectedTimeSlot = _timeSlots.isNotEmpty ? _timeSlots[0] : null;
   }
