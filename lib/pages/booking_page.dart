@@ -118,30 +118,6 @@ class BookingPage extends StatelessWidget {
                         childAspectRatio: 3,
                       ),
                     ),
-                    // child: Wrap(
-                    //   children: value.selectedTimeSlot!.slots
-                    //       .map(
-                    //         (e) => Container(
-                    //           margin: const EdgeInsets.only(
-                    //             right: 10,
-                    //             bottom: 10,
-                    //           ),
-                    //           child: TextButton(
-                    //             style: e == value.selectedSlot
-                    //                 ? MainTheme.selectedSlotTimeStyle
-                    //                 : MainTheme.normalSlotTimeStyle,
-                    //             onPressed: () => value.setSelectedSlot(e),
-                    //             child: Text(
-                    //               "${e.startTime.toTimeOnly()} - ${e.endTime.toTimeOnly()}",
-                    //               style: e == value.selectedSlot
-                    //                   ? MainTheme.selectedSlotTextStyle
-                    //                   : MainTheme.slotTextStyle,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       )
-                    //       .toList(),
-                    // ),
                   ),
                 )
               ],
