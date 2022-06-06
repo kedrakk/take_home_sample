@@ -39,7 +39,10 @@ class HomePage extends StatelessWidget {
             builder: ((context, value, child) {
               return value.isLoading
                   ? const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: MainTheme.cream,
+                        color: MainTheme.cream,
+                      ),
                     )
                   : Container(
                       padding: const EdgeInsets.all(5),
