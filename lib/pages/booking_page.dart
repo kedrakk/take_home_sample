@@ -46,6 +46,9 @@ class BookingPage extends StatelessWidget {
                                   30,
                                 ),
                               ),
+                              border: Border.all(
+                                color: MainTheme.primary.withOpacity(.05),
+                              ),
                             ),
                             child: Column(children: [
                               Text(
@@ -81,30 +84,64 @@ class BookingPage extends StatelessWidget {
                     decoration: const BoxDecoration(
                       color: Colors.white,
                     ),
-                    child: Wrap(
-                      children: value.selectedTimeSlot!.slots
-                          .map(
-                            (e) => Container(
-                              margin: const EdgeInsets.only(
-                                right: 10,
-                                bottom: 10,
-                              ),
-                              child: TextButton(
-                                style: e == value.selectedSlot
-                                    ? MainTheme.selectedSlotTimeStyle
-                                    : MainTheme.normalSlotTimeStyle,
-                                onPressed: () => value.setSelectedSlot(e),
-                                child: Text(
-                                  "${e.startTime.toTimeOnly()} - ${e.endTime.toTimeOnly()}",
-                                  style: e == value.selectedSlot
-                                      ? MainTheme.selectedSlotTextStyle
-                                      : MainTheme.slotTextStyle,
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList(),
+                    child: GridView.builder(
+                      itemCount: value.selectedTimeSlot!.slots.length,
+                      itemBuilder: (context, index) => Container(
+                        margin: const EdgeInsets.only(
+                          right: 10,
+                          bottom: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: MainTheme.primary.withOpacity(.05),
+                          ),
+                        ),
+                        child: TextButton(
+                          style: value.selectedTimeSlot!.slots[index] ==
+                                  value.selectedSlot
+                              ? MainTheme.selectedSlotTimeStyle
+                              : MainTheme.normalSlotTimeStyle,
+                          onPressed: () => value.setSelectedSlot(
+                              value.selectedTimeSlot!.slots[index]),
+                          child: Text(
+                            "${value.selectedTimeSlot!.slots[index].startTime.toTimeOnly()} - ${value.selectedTimeSlot!.slots[index].endTime.toTimeOnly()}",
+                            style: value.selectedTimeSlot!.slots[index] ==
+                                    value.selectedSlot
+                                ? MainTheme.selectedSlotTextStyle
+                                : MainTheme.slotTextStyle,
+                          ),
+                        ),
+                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 3,
+                      ),
                     ),
+                    // child: Wrap(
+                    //   children: value.selectedTimeSlot!.slots
+                    //       .map(
+                    //         (e) => Container(
+                    //           margin: const EdgeInsets.only(
+                    //             right: 10,
+                    //             bottom: 10,
+                    //           ),
+                    //           child: TextButton(
+                    //             style: e == value.selectedSlot
+                    //                 ? MainTheme.selectedSlotTimeStyle
+                    //                 : MainTheme.normalSlotTimeStyle,
+                    //             onPressed: () => value.setSelectedSlot(e),
+                    //             child: Text(
+                    //               "${e.startTime.toTimeOnly()} - ${e.endTime.toTimeOnly()}",
+                    //               style: e == value.selectedSlot
+                    //                   ? MainTheme.selectedSlotTextStyle
+                    //                   : MainTheme.slotTextStyle,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       )
+                    //       .toList(),
+                    // ),
                   ),
                 )
               ],
