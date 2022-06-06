@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:take_home/const/theme.dart';
+import 'package:take_home/pages/booking_page.dart';
 import 'package:take_home/pages/home.dart';
 import 'package:take_home/pages/login.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "loginScreen": (context) => const LoginPage(),
         "homeScreen": (context) => const HomePage(),
+        "bookingScreen": (context) => const BookingPage(),
       },
     );
   }

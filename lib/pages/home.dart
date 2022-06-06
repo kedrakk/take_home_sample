@@ -56,6 +56,12 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.pushNamed(context, 'bookingScreen'),
+        label: const Text(
+          "Click here to book",
+        ),
+      ),
     );
   }
 }

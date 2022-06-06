@@ -7,6 +7,7 @@ class MainTheme {
   static const Color turquoise = Color(0xFF4ECDC4);
   static const Color cream = Color(0xFFF7FFF7);
   static const Color yellow = Color(0xFFFFE66D);
+  static const Color darkWhite = Color(0xFFf2f2f2);
 
   static final ThemeData lightTheme = ThemeData(
     appBarTheme: const AppBarTheme(
@@ -41,4 +42,18 @@ class MainTheme {
       ),
     );
   }
+
+  static TextStyle slotTextStyle = const TextStyle(color: primary);
+  static TextStyle selectedSlotTextStyle = const TextStyle(
+    color: cream,
+  );
+  static ButtonStyle normalSlotTimeStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(cream),
+  );
+  static ButtonStyle selectedSlotTimeStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(primary),
+  );
+  static ButtonStyle unavailableSlotTimeStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(turquoise.withOpacity(.3)),
+  );
 }
