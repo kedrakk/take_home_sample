@@ -11,25 +11,27 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Please Login To Continue'),
+        title: const Text('Take Home'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Center(
+            child: Text(
+              'Please Login To Continue',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
           Center(
             child: ElevatedButton.icon(
               style: MainTheme.elevatedButtonStyle(context),
               onPressed: () => _signInAnonymously(context),
               icon: const Icon(Icons.account_circle_outlined),
-              label: const Text("Anonymosuly"),
-            ),
-          ),
-          Center(
-            child: ElevatedButton.icon(
-              style: MainTheme.elevatedButtonStyle(context),
-              onPressed: () {},
-              icon: const Icon(Icons.account_circle_outlined),
-              label: const Text("Via Google"),
+              label: const Text("Click here to login"),
             ),
           ),
         ],
@@ -43,6 +45,7 @@ class LoginPage extends StatelessWidget {
         context,
         'homeScreen',
         (route) => false,
+        arguments: value,
       );
     }).catchError((e) {
       ScaffoldMessenger.of(context).showSnackBar(

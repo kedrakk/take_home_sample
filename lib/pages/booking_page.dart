@@ -21,10 +21,12 @@ class BookingPage extends StatelessWidget {
         return Consumer<BookingPageProvider>(
           builder: (context, value, child) {
             return value.isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: MainTheme.primary,
-                      color: MainTheme.primary,
+                ? const Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: MainTheme.primary,
+                        color: MainTheme.primary,
+                      ),
                     ),
                   )
                 : Scaffold(

@@ -7,7 +7,11 @@ import 'package:take_home/repository/data_repo.dart';
 import 'package:take_home/widgets/data_table_widget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+    required this.userId,
+  }) : super(key: key);
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: MainTheme.primary,
           appBar: AppBar(
             elevation: 0,
-            title: const Text('Take Home'),
+            title: Text('Hello $userId !!'),
             actions: [
               IconButton(
                 icon: const Icon(Icons.exit_to_app),

@@ -16,7 +16,12 @@ class MyApp extends StatelessWidget {
       initialRoute: "loginScreen",
       routes: {
         "loginScreen": (context) => const LoginPage(),
-        "homeScreen": (context) => const HomePage(),
+        "homeScreen": (context) {
+          var argument = ModalRoute.of(context)!.settings.arguments;
+          return HomePage(
+            userId: argument != null ? argument.toString() : "testUser",
+          );
+        },
         "bookingScreen": (context) => const BookingPage(),
       },
     );
