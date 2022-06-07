@@ -32,7 +32,19 @@ class BookingPage extends StatelessWidget {
                 : Scaffold(
                     backgroundColor: MainTheme.darkWhite,
                     appBar: AppBar(
-                      title: const Text('Available Time Slots'),
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Available Time Slots'),
+                          Text(
+                            '(${value.availableSlots > 0 ? value.availableSlots : "No"} available spots)',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: MainTheme.cream,
+                            ),
+                          ),
+                        ],
+                      ),
                       actions: [
                         IconButton(
                           onPressed: () => showInfoModal(context),
@@ -45,7 +57,7 @@ class BookingPage extends StatelessWidget {
                     body: Column(
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height * 1 / 8,
+                          height: MediaQuery.of(context).size.height * 1 / 7,
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           decoration: const BoxDecoration(
                             color: Colors.white,
@@ -62,7 +74,7 @@ class BookingPage extends StatelessWidget {
                                   child: Container(
                                     margin: const EdgeInsets.all(10),
                                     padding: const EdgeInsets.symmetric(
-                                      vertical: 20,
+                                      vertical: 15,
                                       horizontal: 15,
                                     ),
                                     decoration: BoxDecoration(
@@ -79,22 +91,39 @@ class BookingPage extends StatelessWidget {
                                             MainTheme.primary.withOpacity(.05),
                                       ),
                                     ),
-                                    child: Column(children: [
-                                      Text(
-                                        e.date.toMonth(),
-                                        style: e == value.selectedTimeSlot
-                                            ? MainTheme.selectedSlotTextStyle
-                                            : MainTheme.slotTextStyle,
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.only(top: 5)),
-                                      Text(
-                                        e.date.toDay(),
-                                        style: e == value.selectedTimeSlot
-                                            ? MainTheme.selectedSlotTextStyle
-                                            : MainTheme.slotTextStyle,
-                                      ),
-                                    ]),
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            e.date.toMonth(),
+                                            style: e == value.selectedTimeSlot
+                                                ? MainTheme
+                                                    .selectedSlotTextStyle
+                                                    .copyWith(
+                                                    fontSize: 13,
+                                                  )
+                                                : MainTheme.slotTextStyle
+                                                    .copyWith(
+                                                    fontSize: 13,
+                                                  ),
+                                          ),
+                                          Text(
+                                            e.date.toDay(),
+                                            style: e == value.selectedTimeSlot
+                                                ? MainTheme
+                                                    .selectedSlotTextStyle
+                                                    .copyWith(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.bold,
+                                                  )
+                                                : MainTheme.slotTextStyle
+                                                    .copyWith(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                          ),
+                                        ]),
                                   ),
                                 );
                               },
@@ -175,7 +204,7 @@ class BookingPage extends StatelessWidget {
                     bottomNavigationBar: value.selectedSlot != null
                         ? Container(
                             margin: const EdgeInsets.symmetric(horizontal: 10),
-                            height: MediaQuery.of(context).size.height * 1 / 10,
+                            height: MediaQuery.of(context).size.height * 1 / 9,
                             child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

@@ -23,6 +23,9 @@ class BookingPageProvider with ChangeNotifier {
   final ScrollController _timeController = ScrollController();
   ScrollController get timeController => _timeController;
 
+  int _availableSlots = 0;
+  int get availableSlots => _availableSlots;
+
   void _init() async {
     _isLoading = true;
     try {
@@ -34,8 +37,16 @@ class BookingPageProvider with ChangeNotifier {
     }
     _isLoading = false;
     _selectedTimeSlot = _timeSlots.isNotEmpty ? _timeSlots[0] : null;
+    if (_selectedTimeSlot != null) {
+      _getAvailableSlot();
+    }
     notifyListeners();
-    //_timeSlots = TimeSlot.timeSlots;
+  }
+
+  _getAvailableSlot() {
+    _availableSlots = _selectedTimeSlot!.slots
+        .where((element) => element.available == true)
+        .length;
   }
 
   late List<TimeSlot> _timeSlots;
@@ -53,6 +64,9 @@ class BookingPageProvider with ChangeNotifier {
 
   void setSelectedTimeSlot(TimeSlot? timeSlot) {
     _selectedTimeSlot = timeSlot;
+    if (_selectedTimeSlot != null) {
+      _getAvailableSlot();
+    }
     _selectedSlot = null;
     notifyListeners();
   }

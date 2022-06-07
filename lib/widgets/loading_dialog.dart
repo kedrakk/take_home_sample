@@ -8,7 +8,10 @@ void showLoadingDialog(BuildContext context) {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return const Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          color: MainTheme.cream,
+          backgroundColor: MainTheme.cream,
+        ),
       );
     },
   );
@@ -29,12 +32,8 @@ void showSuccessDialog(BuildContext context) {
         actions: [
           TextButton(
             onPressed: () {
+              dismissDialog(context);
               Navigator.pop(context);
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                'homeScreen',
-                (route) => false,
-              );
             },
             child: const Text("OK"),
           ),

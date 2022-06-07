@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:take_home/const/theme.dart';
 import 'package:take_home/provider/get_it_service.dart';
 import 'package:take_home/repository/data_repo.dart';
+import 'package:take_home/widgets/loading_dialog.dart';
 import 'package:take_home/widgets/snackbar_messages.dart';
 
 class LoginPage extends StatelessWidget {
@@ -40,7 +41,9 @@ class LoginPage extends StatelessWidget {
   }
 
   _signInAnonymously(BuildContext context) {
+    showLoadingDialog(context);
     getIt<IDataRepo>().userLogin().then((value) {
+      dismissDialog(context);
       Navigator.pushNamedAndRemoveUntil(
         context,
         'homeScreen',
@@ -48,6 +51,7 @@ class LoginPage extends StatelessWidget {
         arguments: value,
       );
     }).catchError((e) {
+      dismissDialog(context);
       ScaffoldMessenger.of(context).showSnackBar(
         showErrorMessage(
           e.toString(),
