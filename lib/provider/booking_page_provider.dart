@@ -17,6 +17,12 @@ class BookingPageProvider with ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  final ScrollController _dateController = ScrollController();
+  ScrollController get dateController => _dateController;
+
+  final ScrollController _timeController = ScrollController();
+  ScrollController get timeController => _timeController;
+
   void _init() async {
     _isLoading = true;
     try {

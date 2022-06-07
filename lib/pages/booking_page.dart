@@ -48,51 +48,56 @@ class BookingPage extends StatelessWidget {
                           decoration: const BoxDecoration(
                             color: Colors.white,
                           ),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              var e = value.timeSlots[index];
-                              return InkResponse(
-                                onTap: (() => value.setSelectedTimeSlot(e)),
-                                child: Container(
-                                  margin: const EdgeInsets.all(10),
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 20,
-                                    horizontal: 15,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: e == value.selectedTimeSlot
-                                        ? MainTheme.primary
-                                        : MainTheme.cream,
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(
-                                        30,
+                          child: Scrollbar(
+                            controller: value.dateController,
+                            child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                var e = value.timeSlots[index];
+                                return InkResponse(
+                                  onTap: (() => value.setSelectedTimeSlot(e)),
+                                  child: Container(
+                                    margin: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 20,
+                                      horizontal: 15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: e == value.selectedTimeSlot
+                                          ? MainTheme.primary
+                                          : MainTheme.cream,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(
+                                          30,
+                                        ),
+                                      ),
+                                      border: Border.all(
+                                        color:
+                                            MainTheme.primary.withOpacity(.05),
                                       ),
                                     ),
-                                    border: Border.all(
-                                      color: MainTheme.primary.withOpacity(.05),
-                                    ),
+                                    child: Column(children: [
+                                      Text(
+                                        e.date.toMonth(),
+                                        style: e == value.selectedTimeSlot
+                                            ? MainTheme.selectedSlotTextStyle
+                                            : MainTheme.slotTextStyle,
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.only(top: 5)),
+                                      Text(
+                                        e.date.toDay(),
+                                        style: e == value.selectedTimeSlot
+                                            ? MainTheme.selectedSlotTextStyle
+                                            : MainTheme.slotTextStyle,
+                                      ),
+                                    ]),
                                   ),
-                                  child: Column(children: [
-                                    Text(
-                                      e.date.toMonth(),
-                                      style: e == value.selectedTimeSlot
-                                          ? MainTheme.selectedSlotTextStyle
-                                          : MainTheme.slotTextStyle,
-                                    ),
-                                    const Padding(
-                                        padding: EdgeInsets.only(top: 5)),
-                                    Text(
-                                      e.date.toDay(),
-                                      style: e == value.selectedTimeSlot
-                                          ? MainTheme.selectedSlotTextStyle
-                                          : MainTheme.slotTextStyle,
-                                    ),
-                                  ]),
-                                ),
-                              );
-                            },
-                            itemCount: value.timeSlots.length,
+                                );
+                              },
+                              itemCount: value.timeSlots.length,
+                            ),
                           ),
                         ),
                         Expanded(
@@ -108,52 +113,57 @@ class BookingPage extends StatelessWidget {
                             decoration: const BoxDecoration(
                               color: Colors.white,
                             ),
-                            child: GridView.builder(
-                              itemCount: value.selectedTimeSlot!.slots.length,
-                              itemBuilder: (context, index) => Container(
-                                margin: const EdgeInsets.only(
-                                  right: 10,
-                                  bottom: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: MainTheme.primary.withOpacity(.05),
+                            child: Scrollbar(
+                              controller: value.timeController,
+                              child: GridView.builder(
+                                itemCount: value.selectedTimeSlot!.slots.length,
+                                itemBuilder: (context, index) => Container(
+                                  margin: const EdgeInsets.only(
+                                    right: 10,
+                                    bottom: 10,
                                   ),
-                                ),
-                                child: value.selectedTimeSlot!.slots[index]
-                                        .available
-                                    ? TextButton(
-                                        style: value.selectedTimeSlot!
-                                                    .slots[index] ==
-                                                value.selectedSlot
-                                            ? MainTheme.selectedSlotTimeStyle
-                                            : MainTheme.normalSlotTimeStyle,
-                                        onPressed: () => value.setSelectedSlot(
-                                            value.selectedTimeSlot!
-                                                .slots[index]),
-                                        child: Text(
-                                          "${value.selectedTimeSlot!.slots[index].startTime.toTimeOnly()} - ${value.selectedTimeSlot!.slots[index].endTime.toTimeOnly()}",
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: MainTheme.primary.withOpacity(.05),
+                                    ),
+                                  ),
+                                  child: value.selectedTimeSlot!.slots[index]
+                                          .available
+                                      ? TextButton(
                                           style: value.selectedTimeSlot!
                                                       .slots[index] ==
                                                   value.selectedSlot
-                                              ? MainTheme.selectedSlotTextStyle
-                                              : MainTheme.slotTextStyle,
-                                        ),
-                                      )
-                                    : Container(
-                                        color: Colors.grey[200],
-                                        child: Center(
+                                              ? MainTheme.selectedSlotTimeStyle
+                                              : MainTheme.normalSlotTimeStyle,
+                                          onPressed: () =>
+                                              value.setSelectedSlot(value
+                                                  .selectedTimeSlot!
+                                                  .slots[index]),
                                           child: Text(
                                             "${value.selectedTimeSlot!.slots[index].startTime.toTimeOnly()} - ${value.selectedTimeSlot!.slots[index].endTime.toTimeOnly()}",
-                                            style: MainTheme.slotTextStyle,
+                                            style: value.selectedTimeSlot!
+                                                        .slots[index] ==
+                                                    value.selectedSlot
+                                                ? MainTheme
+                                                    .selectedSlotTextStyle
+                                                : MainTheme.slotTextStyle,
+                                          ),
+                                        )
+                                      : Container(
+                                          color: Colors.grey[200],
+                                          child: Center(
+                                            child: Text(
+                                              "${value.selectedTimeSlot!.slots[index].startTime.toTimeOnly()} - ${value.selectedTimeSlot!.slots[index].endTime.toTimeOnly()}",
+                                              style: MainTheme.slotTextStyle,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                              ),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 3,
+                                ),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 3,
+                                ),
                               ),
                             ),
                           ),
