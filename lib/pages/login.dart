@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:take_home/const/theme.dart';
-import 'package:take_home/widgets/loading_dialog.dart';
+import 'package:take_home/provider/get_it_service.dart';
+import 'package:take_home/repository/data_repo.dart';
 import 'package:take_home/widgets/snackbar_messages.dart';
 
 class LoginPage extends StatelessWidget {
@@ -38,17 +38,13 @@ class LoginPage extends StatelessWidget {
   }
 
   _signInAnonymously(BuildContext context) {
-    //firebase signin anonymously
-    FirebaseAuth auth = FirebaseAuth.instance;
-    showLoadingDialog(context);
-    auth.signInAnonymously().then((value) {
+    getIt<IDataRepo>().userLogin().then((value) {
       Navigator.pushNamedAndRemoveUntil(
         context,
         'homeScreen',
         (route) => false,
       );
     }).catchError((e) {
-      dismissDialog(context);
       ScaffoldMessenger.of(context).showSnackBar(
         showErrorMessage(
           e.toString(),

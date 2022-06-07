@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:take_home/const/theme.dart';
-import 'package:take_home/network/get_data.dart';
+import 'package:take_home/provider/get_it_service.dart';
 import 'package:take_home/provider/prices_provider.dart';
 import 'package:take_home/repository/data_repo.dart';
 import 'package:take_home/widgets/data_table_widget.dart';
@@ -13,9 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => PricesProvider(
-        dataRepo: DataRepo(
-          getNetworkData: GetNetworkData(),
-        ),
+        dataRepo: getIt<IDataRepo>(),
         context: context,
       ),
       builder: (context, _) {

@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:take_home/repository/data_repo.dart';
 
 import '../data/time_slots.dart';
 
 class BookingPageProvider with ChangeNotifier {
-  BookingPageProvider() {
+  BookingPageProvider({
+    required this.dataRepo,
+    required this.context,
+  }) {
     _init();
   }
 
+  IDataRepo dataRepo;
+  BuildContext context;
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   void _init() async {
-    _timeSlots = TimeSlot.timeSlots;
+    _isLoading = true;
+    try {
+      _timeSlots = await dataRepo.getAppointmentSlots();
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
+    }
+    _isLoading = false;
     _selectedTimeSlot = _timeSlots.isNotEmpty ? _timeSlots[0] : null;
+    notifyListeners();
+    //_timeSlots = TimeSlot.timeSlots;
   }
 
   late List<TimeSlot> _timeSlots;
